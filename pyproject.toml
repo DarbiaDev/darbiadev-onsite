@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "darbiadev-onsite"
-version = "0.1.0"
+version = "0.2.0"
 description = "darbiadev-onsite"
 authors = ["Bradley Reynolds <bradley.reynolds@darbia.dev>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://gitlab.com/darbia/darbiadev-onsite"
-documentation = "https://darbia.gitlab.io/darbiadev-onsite"
+repository = "https://github.com/DarbiaDev/darbiadev-onsite/"
+documentation = "https://darbiadev.github.io/darbiadev-onsite/"
 
 [tool.poetry.dependencies]
 python = "^3.9"
