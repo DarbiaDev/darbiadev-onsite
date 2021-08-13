@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "darbiadev-onsite"
-version = "0.2.0"
+version = "0.3.0"
 description = "darbiadev-onsite"
 authors = ["Bradley Reynolds <bradley.reynolds@darbia.dev>"]
 license = "MIT"
