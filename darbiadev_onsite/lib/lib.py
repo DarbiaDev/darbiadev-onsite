@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
-from pathlib import Path
 from typing import Any
 
 import jaydebeapi
 import pandas
-
-package_directory = Path(__file__).parent.parent
 
 
 class OnSiteServices:
@@ -32,7 +29,7 @@ class OnSiteServices:
             'com.filemaker.jdbc.Driver',
             self._connection_url,
             [self.__username, self.__password],
-            f'{package_directory}/vendor/fmjdbc.jar',
+            '/opt/vendor/fmjdbc.jar',
         )
 
     def onsite_order_details(self, order_number: str) -> dict[str, Any]:
