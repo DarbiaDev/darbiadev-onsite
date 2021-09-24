@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
+from importlib.resources import files
 from typing import Any
 
 import jaydebeapi
-import pandas
 
 
 class OnSiteServices:
@@ -29,11 +29,24 @@ class OnSiteServices:
             'com.filemaker.jdbc.Driver',
             self._connection_url,
             [self.__username, self.__password],
-            '/opt/vendor/fmjdbc.jar',
+            str(files('darbiadev_onsite').joinpath('vendor/fmjdbc.jar')),
         )
 
-    def onsite_order_details(self, order_number: str) -> dict[str, Any]:
-        connection = self._connect()
+    def _make_query(
+            self,
+            sql: str,
+    ) -> list[dict[str, Any]]:
+        with self._connect() as connection:
+            cursor = connection.cursor()
+            cursor.execute(sql)
+
+            columns = [col[0] for col in cursor.description]
+            return [dict(zip(columns, row)) for row in cursor.fetchall()]
+
+    def get_order(
+            self,
+            order_number: int,
+    ) -> list[dict[str, Any]]:
         sql = f"""
        SELECT 
            Orders.date_Creation,
@@ -185,13 +198,12 @@ class OnSiteServices:
            FROM Orders 
            WHERE Orders.ID_Order = {order_number}
      """
+        return self._make_query(sql=sql)
 
-        df = pandas.read_sql(sql, connection)
-
-        return df.astype({'ID_Order': 'int32'}).to_dict('records')[0]
-
-    def onsite_order_line_details(self, order_number: str) -> dict[str, Any]:
-        connection = self._connect()
+    def get_order_lines(
+            self,
+            order_number: int,
+    ) -> list[dict[str, Any]]:
         sql = f"""
         SELECT
            LinesOE.ID_LineOE,
@@ -212,7 +224,87 @@ class OnSiteServices:
         FROM LinesOE
         WHERE LinesOE.id_order = {order_number}
      """
+        return self._make_query(sql=sql)
 
-        df = pandas.read_sql(sql, connection)
-
-        return df.to_dict('records')
+    def get_address(
+            self,
+            order_number: int,
+    ) -> list[dict[str, Any]]:
+        sql = f"""
+            SELECT "All",
+               date_creation,
+               date_modification,
+               gn_id_address,
+               gn_id_unique,
+               gn_id_user,
+               id_address,
+               id_unique,
+               sts_archive,
+               time_creation,
+               time_modification,
+               timestamp_creation,
+               timestamp_modification,
+               id_customer,
+               id_vendor,
+               addresscompany,
+               address1,
+               address2,
+               addresscity,
+               addressstate,
+               addresscountry,
+               addresszip,
+               id_vendormain,
+               id_employee,
+               id_employeemain,
+               ct_addressfull,
+               sts_mainaddress,
+               addressdescription,
+               explode_company,
+               explode_address1,
+               explode_address2,
+               explode_city,
+               explode_state,
+               explode_zip,
+               explode_country,
+               id_customermain,
+               sts_omit,
+               id_companylocationshipping,
+               id_companylocationbilling,
+               gt_sffilterlayout,
+               gt_sffiltertable,
+               gn_id_customer,
+               gn_id_vendor,
+               cn_foundcount,
+               explode_description,
+               gn_portalcolumn,
+               id_contact,
+               id_marketing,
+               id_quote,
+               gt_id_block,
+               gn_id_marketingdb_working,
+               gt_access_overall,
+               gt_access_record,
+               gt_customexport_category,
+               gt_customexport_source,
+               gt_customreport_category,
+               gt_customreport_source,
+               gn_all,
+               sum_all,
+               id_marketingimport,
+               ct_addressfullprint,
+               id_order,
+               shipmethod,
+               gn_id_order,
+               gn_id_lineoe,
+               ct_citystatezipcountry,
+               id_employeeown,
+               sts_ownershipmode,
+               sts_ownershiptype,
+               ct_contactemail,
+               ct_contactname,
+               ct_id_orderkeyimport,
+               id_orderkeyalpha
+            FROM Addr
+            WHERE id_order = {order_number}
+               """
+        return self._make_query(sql=sql)
