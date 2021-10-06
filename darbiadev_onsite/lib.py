@@ -220,7 +220,8 @@ class OnSiteServices:
            LinesOE.cn_LineQuantity_Req,
            LinesOE.id_OrderType,
            LinesOE.OrderInstructions,
-           LinesOE.OrderInvoiceNotes
+           LinesOE.OrderInvoiceNotes,
+           LinesOE.cnCur_LinePrice_Req
         FROM LinesOE
         WHERE LinesOE.id_order = {order_number}
      """
