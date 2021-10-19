@@ -10,9 +10,17 @@ SELECT LinesOE.ID_LineOE,
        LinesOE.Size05_Req,
        LinesOE.Size06_Req,
        LinesOE.cn_LineQuantity_Req,
+       LinesOE.Size01_Act,
+       LinesOE.Size02_Act,
+       LinesOE.Size03_Act,
+       LinesOE.Size04_Act,
+       LinesOE.Size05_Act,
+       LinesOE.Size06_Act,
+       LinesOE.cn_LineQuantity_Act,
        LinesOE.id_OrderType,
        LinesOE.OrderInstructions,
        LinesOE.OrderInvoiceNotes,
-       LinesOE.cnCur_LinePrice_Req
+       LinesOE.cnCur_LinePrice_Req,
+       LinesOE.cnCur_UnitPriceUsed
 FROM LinesOE
 WHERE LinesOE.id_order = {order_number}
