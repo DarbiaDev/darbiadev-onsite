@@ -47,15 +47,11 @@ class OnSiteServices:
             self,
             order_number: int,
     ) -> dict[str, Any]:
-        order_sql = _get_sql("order.sql", order_number=order_number)
-        line_sql = _get_sql("linesoe.sql", order_number=order_number)
-        address_sql = _get_sql("address.sql", order_number=order_number)
-        package_sql = _get_sql("packimport.sql", order_number=order_number)
-
-        order_data = self._make_query(sql=order_sql)[0]
-        order_data["lines"] = self._make_query(sql=line_sql)
-        order_data["addresses"] = self._make_query(sql=address_sql)
-        order_data["packages"] = self._make_query(sql=package_sql)
+        order_data = self._make_query(sql=_get_sql("order.sql", order_number=order_number))[0]
+        order_data["lines"] = self._make_query(sql=_get_sql("linesoe.sql", order_number=order_number))
+        order_data["addresses"] = self._make_query(sql=_get_sql("address.sql", order_number=order_number))
+        order_data["packages"] = self._make_query(sql=_get_sql("packimport.sql", order_number=order_number))
+        order_data["events"] = self._make_query(sql=_get_sql("events.sql", order_number=order_number))
 
         return order_data
 
