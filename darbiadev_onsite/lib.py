@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
+import jaydebeapi
 from importlib.resources import files
 from typing import Any
-
-import jaydebeapi
 
 
 class OnSiteServices:
@@ -55,11 +54,27 @@ class OnSiteServices:
 
         return order_data
 
+    def get_design_title(
+            self,
+            design_number: int,
+    ) -> str:
+        design_data = self._make_query(sql=_get_sql("design_title.sql", design_number=design_number))[0]
+
+        return design_data["DesignName"]
+
+    def get_designs_for_customer_purchase_order(
+            self,
+            customer_purchase_order: str,
+    ) -> list[str]:
+        designs = self._make_query(sql=_get_sql("designs_for_po.sql", customer_purchase_order=customer_purchase_order))
+
+        return [str(int(dct["id_Design"])) for dct in designs]
+
 
 def _get_sql(
         file_name: str,
-        order_number: int,
+        **kwargs: str
 ) -> str:
     path = str(files("darbiadev_onsite").joinpath(f"sql/{file_name}"))
     sql = open(path).read()
-    return sql.format(order_number=order_number)
+    return sql.format(**kwargs)
