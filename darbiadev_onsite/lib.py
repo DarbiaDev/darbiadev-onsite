@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+"""Wrapping an ODBC connection to OnSite"""
 
 import jaydebeapi
 from importlib.resources import files
