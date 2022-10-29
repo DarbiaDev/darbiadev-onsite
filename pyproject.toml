@@ -5,7 +5,7 @@ description = "Access OnSite data through FileMaker's JDBC integration"
 authors = [
     { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },
 ]
-license = "MIT"
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = [
