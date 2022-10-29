@@ -9,7 +9,7 @@ license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.7"
 dependencies = [
-    "JayDeBeApi=^1.2.3",
+    "JayDeBeApi>=1.2.3",
 ]
 
 [project.urls]
