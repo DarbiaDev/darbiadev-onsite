@@ -1,6 +1,6 @@
 [project]
 name = "darbiadev-onsite"
-version = "0.12.0"
+version = "0.13.0"
 description = "Access OnSite data through FileMaker's JDBC integration"
 authors = [
     { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },
