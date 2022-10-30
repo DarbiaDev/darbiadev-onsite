@@ -1,3 +1,3 @@
 """Access OnSite data through FileMaker's JDBC integration"""
 
-from .lib import *
+from .lib import OnSiteServices
