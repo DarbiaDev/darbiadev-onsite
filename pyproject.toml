@@ -33,6 +33,9 @@ docs = [
     "toml>=0.10.2",
 ]
 
+[tool.setuptools.package-data]
+darbiadev_onsite = ["**/*.jar"]
+
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
