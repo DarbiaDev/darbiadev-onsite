@@ -36,7 +36,10 @@ class OnSiteServices:  # pylint: disable=too-few-public-methods
     def _make_query(
         self,
         sql: str,
+        parameters: tuple[str | int, ...] | None,
     ) -> list[dict[str, str | int | float]]:
+        if parameters is None:
+            parameters=()
         with self._connect() as connection:
             cursor = connection.cursor()
             cursor.execute(sql)
