@@ -42,7 +42,7 @@ class OnSiteServices:  # pylint: disable=too-few-public-methods
             parameters=()
         with self._connect() as connection:
             cursor = connection.cursor()
-            cursor.execute(sql)
+            cursor.execute(sql, parameters)
 
             columns = [column[0] for column in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
