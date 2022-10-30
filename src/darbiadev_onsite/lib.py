@@ -1,11 +1,13 @@
 """Wrapping an ODBC connection to OnSite"""
 
+from __future__ import annotations
+
 from importlib.resources import files
 
 import jaydebeapi
 
 
-class OnSiteServices:
+class OnSiteServices:  # pylint: disable=too-few-public-methods
     """A class wrapping an ODBC connection to OnSite.
 
     This class wraps an ODBC connection to OnSite.
