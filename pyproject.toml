@@ -9,7 +9,7 @@ license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.9"
 dependencies = [
-    "JayDeBeApi>=1.2.3",
+    "JayDeBeApi",
 ]
 
 [project.urls]
@@ -18,13 +18,12 @@ documentation = "https://docs.darbia.dev/darbiadev-onsite/"
 
 [project.optional-dependencies]
 dev = [
-    "pylint>=2.12.2",
-    "pytest>=6.2.5",
-    "pytest-cov>=3.0.0",
-    "black>=21.12b0",
+    "black",
+    "isort",
+    "pylint",
 ]
 tests = [
-    "pytest>=6.2.5",
+    "pytest",
 ]
 docs = [
     "sphinx",
