@@ -13,12 +13,7 @@ class OnSiteServices:  # pylint: disable=too-few-public-methods
     This class wraps an ODBC connection to OnSite.
     """
 
-    def __init__(
-        self,
-        connection_url: str,
-        username: str,
-        password: str
-    ):
+    def __init__(self, connection_url: str, username: str, password: str):
         self._connection_url: str = connection_url
         self.__username: str = username
         self.__password: str = password
@@ -39,7 +34,7 @@ class OnSiteServices:  # pylint: disable=too-few-public-methods
         parameters: tuple[str | int, ...] | None,
     ) -> list[dict[str, str | int | float]]:
         if parameters is None:
-            parameters=()
+            parameters = ()
         with self._connect() as connection:
             cursor = connection.cursor()
             cursor.execute(sql, parameters)
